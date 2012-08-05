@@ -8,4 +8,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+  
+  has_many :images, :user => "uploader", :order_by => "created_at DESC"
+
+  def recent_images
+     scope  :recent_images, :images, :user => "uploader", :order_by => "created_at DESC"
+  end
 end

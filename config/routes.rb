@@ -1,5 +1,9 @@
 Codemama::Application.routes.draw do
+  resources :images
+
   devise_for :users
+  
+  get "upload/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
