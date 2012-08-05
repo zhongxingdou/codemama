@@ -6,12 +6,46 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   # attr_accessible :title, :body
-  
-  has_many :images, :user => "uploader", :order_by => "created_at DESC"
+
+  validates :username, presence: true
+
+  attr_readonly :images_count
+
+  has_many :images
 
   def recent_images
-     scope  :recent_images, :images, :user => "uploader", :order_by => "created_at DESC"
+    images.limit(10)
+  end
+  
+  def mark_as_admin!
+    update_attribute(:is_admin, true)
+  end
+
+  def mark_as_user!
+    update_attribute(:is_admin, false)
   end
 end
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer(4)      not null, primary key
+#  email                  :string(255)     default(""), not null
+#  encrypted_password     :string(255)     default(""), not null
+#  is_admin               :boolean(1)      default(FALSE)
+#  username               :string(255)
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer(4)      default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  images_count           :integer(4)      default(0)
+#
+

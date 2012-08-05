@@ -4,6 +4,8 @@
 
 <h1>Listing images</h1>
 
+<%= link_to 'New Image', new_image_path %>
+
 <table>
   <tr>
     <th>Name</th>
@@ -15,8 +17,8 @@
 
 <% @images.each do |image| %>
   <tr>
-    <td><%= image.name %></td>
-    <td><%= image.uploader %></td>
+    <td><%= image_tag image.data.url %></td>
+    <td><%= image.user.username %></td>
     <td><%= link_to 'Show', image %></td>
     <td><%= link_to 'Edit', edit_image_path(image) %></td>
     <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,5 +27,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New Image', new_image_path %>
