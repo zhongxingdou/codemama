@@ -15,3 +15,9 @@
 /tmp
 
 .DS_Store
+
+# Ignore all upload files
+/public/uploads
+
+# ingnore database.yml
+/config/database.yml
