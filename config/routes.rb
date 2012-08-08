@@ -5,5 +5,5 @@ Codemama::Application.routes.draw do
 
   devise_for :users
 
-  root :controller => 'static', :action => '/' 
+  root :to => "pictures#index"
 end
