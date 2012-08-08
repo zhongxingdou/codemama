@@ -53,3 +53,5 @@ group :development do
 end
 
 gem "capistrano"
+
+gem 'therubyracer', require: "v8"

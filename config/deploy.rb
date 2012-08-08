@@ -1,5 +1,5 @@
 set :application, "codemama"
-set :repository,  "git@github.com:zhongxingdou/codemama.git"
+set :repository,  "git://github.com/zhongxingdou/codemama.git"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
