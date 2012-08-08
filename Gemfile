@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
 
-#gem 'mysql2'
 
 gem 'sqlite3'
 
@@ -55,5 +54,6 @@ end
 gem "capistrano"
 
 group :production do
+  gem 'mysql2'
   gem 'therubyracer', require: "v8"
 end
