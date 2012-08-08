@@ -13,15 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120805163847) do
 
-  create_table "images", :force => true do |t|
-    t.string   "data"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "images", ["user_id"], :name => "index_images_on_user_id"
-
   create_table "pictures", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
@@ -44,11 +35,9 @@ ActiveRecord::Schema.define(:version => 20120805163847) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.integer  "images_count",           :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["images_count"], :name => "index_users_on_images_count"
   add_index "users", ["is_admin"], :name => "index_users_on_is_admin"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
