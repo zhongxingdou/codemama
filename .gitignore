@@ -29,3 +29,5 @@
 *.old
 
 *.swp
+
+Gemfile.lock

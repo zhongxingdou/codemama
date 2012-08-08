@@ -5,8 +5,5 @@ Codemama::Application.routes.draw do
 
   devise_for :users
 
-  #root :to => 'pictures#index'
-
-  match '/pictures/index' => 'pictures#index', :as => :user_root
-
+  root :to => 'pictures#index'
 end
