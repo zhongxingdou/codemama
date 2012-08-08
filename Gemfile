@@ -54,4 +54,6 @@ end
 
 gem "capistrano"
 
-gem 'therubyracer', require: "v8"
+group :production do
+  gem 'therubyracer', require: "v8"
+end

@@ -31,3 +31,5 @@
 *.swp
 
 Gemfile.lock
+
+db/schema.rb
