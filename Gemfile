@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
 
-gem 'mysql2'
+#gem 'mysql2'
 
 gem 'sqlite3'
 
 gem 'devise'
 
 # Upload support
-gem 'carrierwave', '~> 0.6.2'
+#gem 'carrierwave', '~> 0.6.2'
 gem 'simple_form', '~> 2.0.1'
 gem 'inherited_resources', '~> 1.3.1'
 # Admin support
@@ -51,3 +51,5 @@ group :development do
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'pry-rails'
 end
+
+gem "capistrano"

@@ -1,9 +1,9 @@
 Codemama::Application.routes.draw do
+  resources :pictures
+
   ActiveAdmin.routes(self)
 
   devise_for :users
 
-  resources :images
-
-  root :to => 'images#index'
+  root :to => 'pictures#index'
 end

@@ -18,9 +18,14 @@
 
 # Ignore all upload files
 /public/uploads
+/public/imgs
+/public/pictures
 
 # ingnore database.yml
 /config/database.yml
 
 # Ingore rvmrc
 /.rvmrc
+*.old
+
+*.swp

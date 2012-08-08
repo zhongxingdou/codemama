@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
   attr_accessible :data
 
-  mount_uploader :data, ImageUploader
+  #mount_uploader :data, ImageUploader
 
   validates :user_id, presence: true
 

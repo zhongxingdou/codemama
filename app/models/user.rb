@@ -11,12 +11,12 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
 
-  attr_readonly :images_count
+  #attr_readonly :images_count
 
-  has_many :images
+  has_many :pictures
 
-  def recent_images
-    images.limit(10)
+  def recent_pictures
+    pictures.limit(10)
   end
   
   def mark_as_admin!

@@ -1,3 +1,3 @@
-ActiveAdmin.register Image do
+ActiveAdmin.register Picture do
   
 end
