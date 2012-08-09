@@ -101,7 +101,7 @@
             <td><%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails" %>
               <a href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank">大图</a>
             </td>
-            <td><%= picture.name %>&nbsp;<span class="clip-button" data-filename="<%= picture.name %>">复制</span></td>
+            <td><%= picture.name %>&nbsp;<span class="clip-button" data-filename="http://res.chukou1.com/<%= picture.name %>">复制</span></td>
             <td><%= picture.created_at.strftime('%Y-%m-%d %H:%M:%S')  %></td>
           </tr>
         <% end %>
