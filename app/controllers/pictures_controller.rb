@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PicturesController < InheritedResources::Base
   before_filter :authenticate_user!
 
@@ -18,9 +19,44 @@ class PicturesController < InheritedResources::Base
       extname = File.extname(file.original_filename)
       #只接受指定文件类型
       unless AcceptImageTypes.include? extname.downcase
-        flash[:error] = "Accepted file extention is #{AcceptImageTypes.to_s}"
+        flash[:error] = "只允许上传扩展名为 #{AcceptImageTypes.to_s}的图片"
         render :index
       else
+        subdir = get_save_subdir()
+
+        save_name = make_file_name(subdir, file)
+
+        save_pic(file, SaveRoot + "/" + subdir, save_name)
+
+        #存储图片的相关信息
+        create_pic_info(save_name)
+
+        redirect_to(pictures_url, :notice => '成功上传')
+      end
+    else
+      flash[:error] = "请选择要上传的图片！"
+      render :index
+    end
+  end
+
+  private 
+    def make_file_name(subdir, file)
+      conn_char = "_"
+      return subdir + conn_char + SecureRandom.hex(8) + File.extname(file.original_filename)
+    end
+
+    def save_pic file, save_dir, save_name
+      File.open(save_dir + "/" + save_name, 'wb'){ |f| f.write(file.read)}
+    end
+
+    def create_pic_info file_name
+      pic = Picture.new
+      pic.user = current_user
+      pic.name = file_name
+      pic.save
+    end
+
+    def get_save_subdir
         #子文件夹的数量，据此推算子文件夹名
         sub_count = Dir.entries(SaveRoot).size - 2 #-2 排除 . ..
 
@@ -46,31 +82,12 @@ class PicturesController < InheritedResources::Base
             imgs_count = imgs_count - 1
           end
 
-
           if imgs_count+1 > MaximumImages
             last_num = last_num + 1
             save_dir = SaveRoot + "/" + last_num.to_s
             FileUtils.mkdir_p(save_dir) 
           end
         end
-
-        #保存文件
-        conn_char = "_"
-        file_name = last_num.to_s + conn_char + SecureRandom.hex(8) + File.extname(file.original_filename)
-        File.open(save_dir + "/" + file_name, 'wb'){ |f| f.write(file.read)}
-
-        #存储图片的相关信息
-        pic = Picture.new
-        pic.user = current_user
-        pic.name = file_name
-        pic.save
-
-        redirect_to(pictures_url, :notice => 'upload success')
-      end
-    else
-      flash[:error] = "Please select a file to upload!"
-      render :index
+        return last_num.to_s
     end
-  end
-
 end
