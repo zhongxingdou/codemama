@@ -1,5 +1,5 @@
 <style>
-	.clip-wrap{
+	.cell-picname{
 		position: relative;
 	}
 	.clip-button { 
@@ -72,7 +72,7 @@
     </div>
 
     <h1>
-      <img src="/assets/favicon.ico" alt="logo" />CodeMama-图片上传
+      <img src="/assets/favicon.ico" alt="logo" style="widht:48px;height:48px" />CodeMama-图片上传
     </h1>
 
 
@@ -101,7 +101,7 @@
             <td><%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails" %>
               <a href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank">大图</a>
             </td>
-            <td><%= picture.name %>&nbsp;<span class="clip-button" data-filename="http://res.chukou1.com/<%= picture.name %>">复制</span></td>
+            <td class="cell-picname"><%= picture.name %>&nbsp;<span class="clip-button" data-filename="<%= picture.name %>">复制</span></td>
             <td><%= picture.created_at.strftime('%Y-%m-%d %H:%M:%S')  %></td>
           </tr>
         <% end %>
@@ -111,13 +111,14 @@
 
   <%= javascript_include_tag "ZeroClipboard.js" %>
   <script>
+    var STATIC_BASE = "http://res.chukou1.com/"
     function initClipBoard() {
       ZeroClipboard.setMoviePath('assets/ZeroClipboard10.swf' );
 
       $(".clip-button").each(function(){
         var clip = new ZeroClipboard.Client();
         clip.setHandCursor( true );
-        clip.setText($(this).data('filename'));
+        clip.setText(STATIC_BASE + $(this).data('filename'));
 
         if(window.console){
           clip.addEventListener('load', function (client) {
@@ -125,7 +126,7 @@
           });
         }
 
-        clip.glue(this);
+        clip.glue(this, this.parentNode);
       });
     }
 
