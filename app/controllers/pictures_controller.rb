@@ -3,7 +3,7 @@ class PicturesController < InheritedResources::Base
   before_filter :authenticate_user!
 
   #图片存储的根文件夹，图片会存储在此文件夹下的子文件夹中
-  SaveRoot = "public/imgs"
+  SaveRoot = Rails.root.to_s + "/public/imgs"
 
   #一个目录最多存放多少个图片，2指. ..
   MaximumImages = 10000 + 2
