@@ -42,7 +42,7 @@ class PicturesController < InheritedResources::Base
   private 
     def make_file_name(subdir, file)
       conn_char = "_"
-      return subdir + conn_char + SecureRandom.hex(8) + File.extname(file.original_filename)
+      return subdir + conn_char + SecureRandom.hex(3) + File.extname(file.original_filename)
     end
 
     def save_pic file, save_dir, save_name
