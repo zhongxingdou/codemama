@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :pictures
 
   def recent_pictures
-    pictures.limit(10)
+    pictures.limit(20)
   end
   
   def mark_as_admin!
