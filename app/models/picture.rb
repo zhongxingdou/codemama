@@ -8,7 +8,7 @@ class Picture < ActiveRecord::Base
   before_destroy :rm_pic
 
 
-  SaveRoot = Rails.root + "/public/imgs"
+  SaveRoot = Rails.root.to_s + "/public/imgs"
 
   def rm_pic
     name = self.name
