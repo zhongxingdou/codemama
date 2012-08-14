@@ -58,7 +58,7 @@ class PicturesController < InheritedResources::Base
 
     def get_save_subdir
         #子文件夹的数量，据此推算子文件夹名
-        sub_count = Dir.entries(SaveRoot).grep(/\d+/).size
+        sub_count = Dir.entries(SaveRoot).grep(/^\d+$/).size
 
 
         #准备要存储到的文件夹
