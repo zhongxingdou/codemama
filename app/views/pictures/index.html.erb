@@ -111,14 +111,16 @@
 
   <%= javascript_include_tag "ZeroClipboard.js" %>
   <script>
-    var STATIC_BASE = "http://res.chukou1.com/pic/"
+    var STATIC_BASE = "http://pic.chukou1.com/"
     function initClipBoard() {
       ZeroClipboard.setMoviePath('assets/ZeroClipboard10.swf' );
 
       $(".clip-button").each(function(){
         var clip = new ZeroClipboard.Client();
         clip.setHandCursor( true );
-        clip.setText(STATIC_BASE + $(this).data('filename'));
+		var filename = $(this).data("filename");
+		var subdir = filename.substr(0, filename.indexOf("_"));
+        clip.setText(STATIC_BASE + subdir + "/" + filename);
 
         if(window.console){
           clip.addEventListener('load', function (client) {
