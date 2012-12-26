@@ -1,0 +1,27 @@
+<h1>Listing faqs</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>User</th>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @faqs.each do |faq| %>
+  <tr>
+    <td><%= faq.title %></td>
+    <td><%= faq.user.username %></td>
+    <td><%= distance_of_time_in_words_to_now faq.created_at  %></td>
+    <td><%= link_to 'Show', faq %></td>
+    <td><%= link_to 'Edit', edit_faq_path(faq) %></td>
+    <td><%= link_to 'Destroy', faq, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Faq', new_faq_path %>

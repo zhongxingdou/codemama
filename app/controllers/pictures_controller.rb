@@ -11,6 +11,11 @@ class PicturesController < InheritedResources::Base
   #可接受的文件类型
   AcceptImageTypes = [".jpg",".png",".gif"]
 
+  def index
+    @pics = current_user.pictures.paginate(:page => params[:page], :per_page => 10).order("created_at DESC")
+  end
+
+
   def create
     param_img = params[:image]
     unless param_img.blank?
@@ -36,6 +41,32 @@ class PicturesController < InheritedResources::Base
     else
       flash[:error] = "请选择要上传的图片！"
       render :index
+    end
+  end
+
+  def upload
+    file = params[:file]
+
+    extname = File.extname(file.original_filename)
+
+    #只接受指定文件类型
+    unless AcceptImageTypes.include? extname.downcase
+      respond_to do |format|
+        format.json { render :json, {:error => "只允许上传扩展名为 #{AcceptImageTypes.to_s}的图片"} }
+      end
+    else
+      subdir = get_save_subdir()
+
+      save_name = make_file_name(subdir, file)
+
+      save_pic(file, SaveRoot + "/" + subdir, save_name)
+
+      #存储图片的相关信息
+      create_pic_info(save_name)
+
+      respond_to do |format|
+        format.json  { render :json => {:filelink => "/imgs/#{subdir}/#{save_name}"} }
+      end
     end
   end
 

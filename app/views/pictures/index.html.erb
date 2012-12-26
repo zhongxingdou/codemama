@@ -96,7 +96,7 @@
           <th>上传日期</th>
         </tr>
 
-        <% current_user.recent_pictures.each do |picture| %>
+        <% @pics.each do |picture| %>
           <tr>
             <td><%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails" %>
               <a href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank">大图</a>
@@ -106,6 +106,10 @@
           </tr>
         <% end %>
       </table>
+
+      <div class="flickr_pagination">
+        <%= will_paginate @pics, :container => false %>
+      </div>
     </div>
   </div>
 
