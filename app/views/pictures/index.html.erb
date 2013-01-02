@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/assets/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/assets/fancybox/jquery.fancybox.pack.js"></script>
 <style>
 	.cell-picname{
 		position: relative;
@@ -94,15 +96,22 @@
           <th>预览</th>
           <th>图片名</th>
           <th>上传日期</th>
+          <th>操作</th>
         </tr>
 
         <% @pics.each do |picture| %>
           <tr>
-            <td><%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails" %>
-              <a href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank">大图</a>
+            <td>
+              <%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails" %>
+              <a class="fancybox" href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank" rel="gallery">大图</a>
             </td>
             <td class="cell-picname"><%= picture.name %>&nbsp;<span class="clip-button" data-filename="<%= picture.name %>">复制</span></td>
             <td><%= picture.created_at.strftime('%Y-%m-%d %H:%M:%S')  %></td>
+            <td>
+              <% if picture.created_at.day == Date.today.day and picture.created_at.month == Date.today.month %>
+                <%= link_to '删除', picture, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </table>
@@ -138,6 +147,11 @@
 
     $(function(){
       initClipBoard();
+      $('.fancybox').fancybox({
+        "nextClick": true,
+        "openEffect": "none",
+        "arrows": false
+      });
     });
   </script>
 
