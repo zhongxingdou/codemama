@@ -55,7 +55,8 @@
                 <%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails", :title=>"点击查看大图" %></a>
             </td>
             <td class="cell-picname">http://pic.chukou1.com/<%= picture.name[0...picture.name.index("_")] + "/"%><span style="color:blue;"><%= picture.name %></span>&nbsp;<span class="btn btn-mini btn-clip" data-filename="<%= picture.name %>">复制</span></td>
-            <td><%= picture.created_at.strftime('%Y-%m-%d %H:%M:%S')  %></td>
+            <td><%= distance_of_time_in_words_to_now(picture.created_at) %></td>
+            <%#= picture.created_at.strftime('%Y-%m-%d %H:%M:%S')  %>
             <td>
               <% if picture.created_at.day == Date.today.day and picture.created_at.month == Date.today.month %>
                 <%= link_to '删除', picture, method: :delete, data: { confirm: 'Are you sure?' } %>

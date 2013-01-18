@@ -11,6 +11,7 @@
 <table class="table">
   <tr>
     <th>Name</th>
+    <th>Created_At</th>
     <th>Locked</th>
     <th>Owner</th>
     <th>Template</th>
@@ -20,6 +21,7 @@
 <% @edms.each do |edm| %>
   <tr>
     <td><%= link_to edm.name, preview_edm_path(edm), :title => "Preview" %></td>
+    <td><%= distance_of_time_in_words_to_now edm.created_at  %></td>
     <td><%= edm.locked %></td>
     <td><%= edm.owner.username %></td>
     <td>

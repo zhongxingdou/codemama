@@ -6,4 +6,5 @@ class Edm < ActiveRecord::Base
   validates :name, :owner_id, :presence => true
 
   attr_accessible :editing_file, :locked, :name, :content, :owner_id, :template_id
+  default_scope order('created_at DESC')
 end
