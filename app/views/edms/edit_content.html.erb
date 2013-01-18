@@ -12,20 +12,30 @@
   .redactor_editor, .redactor_editor:focus {
     padding: 0 !important;
   }
-  .download{
+  .icon{
     display: block;
     width: 64px;
     height: 64px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .download{
     background: white url("/assets/download.png") no-repeat center center;
+  }
+  .back{
+    background: white url("/assets/back.png") no-repeat center center;
+  }
+  .edit{
+    background: white url("/assets/edit.png") no-repeat center center;
+  }
+  .icon:hover{
+    background-color: #ccc;
+  }
+  .apptoolbar{
     position: absolute;
     z-index: 2;
     left: 700px;
     top: 20px;
-    border-radius: 10px;
-    padding: 10px;
-  }
-  .download:hover{
-    background-color: #ccc;
   }
   </style>
 
@@ -39,7 +49,11 @@
   </script>
 </head>
 <body>
-    <%= link_to '', download_edm_path(@edm), :title => "下载", :class=>'download' %>
+    <div class="apptoolbar">
+      <%= link_to '', edms_path, :title => "返回EDM列表", :class => 'back icon' %>
+      <%= link_to '', edit_edm_path(@edm), :title => "编码源代码", :class=>'edit icon' %>
+      <%= link_to '', download_edm_path(@edm), :title => "下载", :class=>'download icon' %>
+    </div>
     <div id="edm_content" data-update_url="/edms/<%= @edm.id %>" data-update_params='{"utf8":"✓","authenticity_token":"<%= form_authenticity_token if protect_against_forgery? %>","_method":"put"}' data-update_name="edm[content]" >
         <%= raw @edm.content %>
     </div>
