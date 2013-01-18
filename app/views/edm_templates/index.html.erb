@@ -1,0 +1,33 @@
+<h2>EDM模板</h2>
+<% if notice %>
+<p class="alert alert-success">
+    <a class="close" href="#" onclick="$(this).parent().remove();">&times;</a>
+    <%= notice %>
+</p>
+<% end %>
+
+<table class="table">
+  <tr>
+    <th>预览图</th>
+    <th>名称</th>
+    <th>编辑锁定</th>
+    <th></th>
+  </tr>
+
+<% @edm_templates.each do |edm_template| %>
+  <tr>
+    <td><%= edm_template.preview %></td>
+    <td><%= link_to edm_template.name, preview_edm_template_path(edm_template), :target => "_blank", :title => "预览"%> </td>
+    <td><%= edm_template.locked %></td>
+    <td class="operate"><%= link_to '', new_edm_template_edm_path(edm_template), :class=>"icon-plus", :title=>"新建EDM" %>
+    <%#= link_to 'Show', edm_template %>
+    <%= link_to '', edit_edm_template_path(edm_template), :class=>"icon-wrench", :title=>"编辑" %>
+    <%= link_to '', edm_template, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"icon-trash", :title=>"删除" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '新建模板', new_edm_template_path, :class => "btn btn-primary" %>
+<%= link_to "EDM列表", edms_path %>

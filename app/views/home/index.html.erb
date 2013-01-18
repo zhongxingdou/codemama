@@ -1,0 +1,54 @@
+<style>
+.applist li{
+  display: inline-block;
+  padding: 10px;
+  margin-right: 30px;
+}
+.applist li:hover{
+  background-color: #E6E6E6;
+  border-radius: 20px;
+  /*border: 1px gray solid;*/
+}
+.applist h2{
+  margin: 0;
+  font-size: 18px;
+  line-height: 20px;
+}
+.applist a{
+  width: 160px;
+  height: 30px;
+  display: block;
+  padding-top: 130px;
+  text-decoration: none;
+}
+.applist a:hover{
+  text-decoration: none;
+  color: #08C;
+}
+.applist .img-app{
+  background: url("/assets/img_uploader.png") no-repeat center 0;
+}
+.applist .edm-app{
+  background: url("/assets/emd_creater.png") no-repeat center 0;
+}
+.applist .admin-app{
+  background: url("/assets/admin.png") no-repeat center 0;
+}
+</style>
+<ul class="applist" style=" text-align:center; margin-left:auto; margin-right:auto;padding-top:100px">
+  <li>
+    <a href="/pictures" class="img-app">
+     <h2>上传图片</h2>
+   </a>
+ </li>
+ <li>
+   <a href="/edms" class="edm-app">
+     <h2>制作EDM</h2>
+   </a>
+ </li>
+ <li>
+   <a href="/admin" class="admin-app">
+     <h2>系统管理</h2>
+   </a>
+ </li>
+</ul>

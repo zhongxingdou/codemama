@@ -1,0 +1,43 @@
+<h2>Listing edms</h2>
+
+<% if notice %>
+<p class="alert alert-success">
+    <a class="close" href="#" onclick="$(this).parent().remove();">&times;</a>
+    <%= notice %>
+</p>
+<% end %>
+
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Locked</th>
+    <th>Owner</th>
+    <th>Template</th>
+    <th></th>
+  </tr>
+
+<% @edms.each do |edm| %>
+  <tr>
+    <td><%= link_to edm.name, preview_edm_path(edm), :title => "Preview" %></td>
+    <td><%= edm.locked %></td>
+    <td><%= edm.owner.username %></td>
+    <td>
+        <% if edm.template %>
+            <%= link_to edm.template.name, preview_edm_template_path(edm.template) %>
+        <% end %>
+    </td>
+    <td class="operate"><%= link_to '', edit_content_edm_path(edm), :title=>"编辑", :class => 'icon-pencil' %>
+    <%= link_to '', download_edm_path(edm), :title => "下载", :class=>'icon-download-alt' %>
+    <%= link_to '', clone_edm_path(edm), :class=>'icon-plus', :title=>"clone" %>
+    <%= link_to '', edit_edm_path(edm), :class=>"icon-wrench", :title=>'修改源码' %>
+    <%= link_to '', edm, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-trash', :title => "删除" %>
+    <%#= link_to 'Show', edm %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '从母版新建', edm_templates_path, :class=>"btn btn-primary" %>
+<%= link_to '新建空白Edm', new_edm_path, :class=>"btn" %>

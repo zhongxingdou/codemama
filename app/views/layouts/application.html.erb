@@ -3,13 +3,56 @@
 <head>
   <title>Codemama</title>
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%#= stylesheet_link_tag  "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="http://res.chukou1.com/vendor/bootstrap/2.1.1/css/bootstrap.min.css" />
+  <style>
+    h1{
+      vertical-align: bottom;
+    }
+    .login-banner{
+        float: right; 
+        margin-right: 50px;
+        margin-top: 10px;
+    }
+    .logo{
+       -webkit-transition: -webkit-transform .3s ease-in, background .3s ease-in;
+    -moz-transition:    -moz-transform .3s ease-in, background .3s ease-in;
+    -o-transition:      -o-transform .3s ease-in, background .3s ease-in;
+    transition:         transform .3s ease-in, background .3s ease-in;
+    }
+    .logo:hover{
+      -transform: rotate(360deg) scale(2);
+      -webkit-transform: rotate(360deg) scale(2);
+      -moz-transform: rotate(360deg) scale(2);
+      -o-transform: rotate(360deg) scale(2);
+    }
+    h1 a:hover{background-color: white;}
+
+    .operate a{
+      margin-right: 10px;
+    }
+    input[type="file"] {
+      line-height: 0;
+    }
+  </style>
 </head>
 <body>
+    <div style="margin: 0 auto;width:960px;">
+      <% if current_user %>
+      <div class="login-banner">
+        你好：<span><%= current_user.email %></span>&nbsp;<%= link_to "退出", destroy_user_session_url, :method => :delete  %>
+      </div>
+      <% end %>
 
-<%= yield %>
+      <h1 style="text-align;margin-bottom:50px;">
+          <a href="/" title="喜欢就点我吧！(回首页)"><img class="logo" src="/assets/favicon.ico" alt="logo" style="widht:48px;height:48px" /></a>CodeMama<%= "-" + @app if @app %>
+      </h1>
 
+      <div style="text-align:left;">
+        <%= yield %>
+    </div>
+</div>
 </body>
 </html>

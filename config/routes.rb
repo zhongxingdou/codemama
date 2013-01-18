@@ -1,13 +1,32 @@
 Codemama::Application.routes.draw do
-  resources :faqs
+  get "home/index"
 
-  resources :pictures
+    resources :edms do
+        member do
+            get 'clone'
+            get 'preview'
+            get 'edit_content'
+            get 'download'
+        end
+    end
 
-  ActiveAdmin.routes(self)
+    resources :edm_templates do
+        member do
+            get 'preview'
+        end
+        resources :edms
+    end
 
-  devise_for :users
+    resources :faqs
 
-  match "/pictures/upload" => "pictures#upload"
+    resources :pictures
 
-  root :to => "pictures#index"
+    ActiveAdmin.routes(self)
+
+    devise_for :users
+
+    match "/pictures/upload" => "pictures#upload"
+    match "/pictures/uploadBase64" => "pictures#uploadBase64"
+
+    root :to => "home#index"
 end

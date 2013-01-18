@@ -1,6 +1,6 @@
 # encoding: utf-8
 class PicturesController < InheritedResources::Base
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :set_name
 
   #图片存储的根文件夹，图片会存储在此文件夹下的子文件夹中
   SaveRoot = Rails.root.to_s + "/public/imgs"
@@ -10,6 +10,10 @@ class PicturesController < InheritedResources::Base
 
   #可接受的文件类型
   AcceptImageTypes = [".jpg",".png",".gif"]
+
+  def set_name
+    @app = "图片上传"
+  end
 
   def index
     @pics = current_user.pictures.paginate(:page => params[:page], :per_page => 10).order("created_at DESC")
@@ -29,7 +33,7 @@ class PicturesController < InheritedResources::Base
       else
         subdir = get_save_subdir()
 
-        save_name = make_file_name(subdir, file)
+        save_name = make_file_name(subdir, extname)
 
         save_pic(file, SaveRoot + "/" + subdir, save_name)
 
@@ -42,6 +46,20 @@ class PicturesController < InheritedResources::Base
       flash[:error] = "请选择要上传的图片！"
       render :index
     end
+  end
+
+  def uploadBase64
+    base_64_encoded_data = params[:image]
+    # base_64_encoded_data.delete!("data:image/jpeg;base64,")
+    data  = Base64.decode64(base_64_encoded_data)
+    extname = ".jpg"
+    subdir = get_save_subdir()
+    save_name = make_file_name(subdir, extname)
+    File.open(SaveRoot + "/" + subdir + "/" + save_name, 'wb') do|f|
+      f.write(data)
+    end
+    create_pic_info(save_name)
+    render :text => "/#{subdir}/#{save_name}"
   end
 
   def upload
@@ -57,7 +75,7 @@ class PicturesController < InheritedResources::Base
     else
       subdir = get_save_subdir()
 
-      save_name = make_file_name(subdir, file)
+      save_name = make_file_name(subdir, extname)
 
       save_pic(file, SaveRoot + "/" + subdir, save_name)
 
@@ -71,9 +89,9 @@ class PicturesController < InheritedResources::Base
   end
 
   private 
-    def make_file_name(subdir, file)
+    def make_file_name(subdir, extname)
       conn_char = "_"
-      return subdir + conn_char + SecureRandom.hex(3) + File.extname(file.original_filename)
+      return subdir + conn_char + SecureRandom.hex(3) + extname
     end
 
     def save_pic file, save_dir, save_name

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @edm.name %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%= @edm.owner_id %>
+</p>
+
+<p>
+  <b>Template:</b>
+  <%= @edm.template_id %>
+</p>
+
+<p>
+  <b>Locked:</b>
+  <%= @edm.locked %>
+</p>
+
+<p>
+  <b>Editing file:</b>
+  <%= @edm.editing_file %>
+</p>
+
+
+<%= link_to 'Edit', edit_edm_path(@edm) %> |
+<%= link_to 'Back', edms_path %>

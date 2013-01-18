@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= @edm.name %></title>
+  <link rel="stylesheet" href="http://res.chukou1.com/vendor/redactor/8.0.3/redactor/redactor2.css" />
+
+  <style type="text/css">
+  .redactor_toolbar li a.redactor_btn_save{
+    background: url(http://pic.chukou1.com/0/0_aef703.png) center center no-repeat;
+  }
+  .redactor_editor, .redactor_editor:focus {
+    padding: 0 !important;
+  }
+  .download{
+    display: block;
+    width: 64px;
+    height: 64px;
+    background: white url("/assets/download.png") no-repeat center center;
+    position: absolute;
+    z-index: 2;
+    left: 700px;
+    top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .download:hover{
+    background-color: #ccc;
+  }
+  </style>
+
+  <script src="http://res.chukou1.com/vendor/jquery/1.8/jquery.js"></script>
+
+  <script src="http://res.chukou1.com/vendor/redactor/8.0.3/redactor/redactor2.js"></script>
+  <script src="http://res.chukou1.com/vendor/redactor/8.0.3/redactor/fullscreen.js"></script>
+  <script src="http://res.chukou1.com/vendor/redactor/8.0.3/redactor/zh_cn.js"></script>
+  <script>
+    var $authenticity_token =  "<%= form_authenticity_token if protect_against_forgery?  %>";
+  </script>
+</head>
+<body>
+    <%= link_to '', download_edm_path(@edm), :title => "下载", :class=>'download' %>
+    <div id="edm_content" data-update_url="/edms/<%= @edm.id %>" data-update_params='{"utf8":"✓","authenticity_token":"<%= form_authenticity_token if protect_against_forgery? %>","_method":"put"}' data-update_name="edm[content]" >
+        <%= raw @edm.content %>
+    </div>
+    <script src="http://res.chukou1.com/mama/edm/editor.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/text_editor.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/line_editor.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/rich_editor.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/item_editor.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/link_prompt.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/image_prompt.js"></script>
+    <script>
+      $edm.init();
+    </script>
+    <link rel="stylesheet" href="http://res.chukou1.com/vendor/jq_ui/1.9.2/css/redmond/jquery-ui-1.9.2.min.css" />
+    <script src="http://res.chukou1.com/vendor/jq_ui/1.9.2/js/jquery-ui-1.9.2.min.js"></script>
+    <link rel="stylesheet" href="http://res.chukou1.com/vendor/jq_crop/css/imgareaselect-default.css" />
+    <script src="http://res.chukou1.com/vendor/jq_crop/scripts/jquery.imgareaselect.pack.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,63 @@
+<%= render "layouts/code_mirrow" %>
+<style>
+.template{
+  width: 750px;
+  height: 400px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+</style>
+
+<%= form_for([@template, @edm]) do |f| %>
+  <% if @edm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@edm.errors.count, "error") %> prohibited this edm from being saved:</h2>
+
+      <ul>
+      <% @edm.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <% unless @template.nil? %>
+      <h3>模板预览</h3>
+      <iframe src="<%= preview_edm_template_path(@template) %>" class="template" ></iframe>
+    <% else %>
+      <%= f.label :content %>
+      <%= f.text_area :content %> 
+      <input type="button" class="btn" style="margin-top:5px;" id="realtimePreview" value="打开实时预览窗口" />
+    <% end %>
+
+    <% if @template.nil? %>
+    <span style="display: inline-block;margin-top:5px;">
+    <strong  class="radio inline" style="margin-left:20px;">从HTML文件导入： 编码</strong>
+   
+    <label class="radio inline" style="width:40px;"><input type="radio" name="encoding" value="utf-8" />UTF-8</label>
+    <label class="radio inline" style="width:40px;"><input type="radio" name="encoding" value="gbk" checked />GBK</label>
+    <input style="display:none;" id="template_file" type="file"/>
+    <input type="button" class="btn" value="选择文件" onclick="$('#template_file').click()" />
+    </span>
+  <% end %>
+
+   <div style="margin-top:20px;">
+    <%= f.submit :class => "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script src="http://res.chukou1.com/mama/edm/html_editor.js"></script>
+<script>
+$(function(){
+  $htmlEditor.init("edm_content");
+  $("#realtimePreview").click($htmlEditor.openPreview);
+  $('#template_file').change(function(event){
+    var encoding = $("input[name=encoding]:checked").val(); 
+    $htmlEditor.setContentByFile(this.files[0], encoding);
+    this.value = "";
+  });
+});
+</script>

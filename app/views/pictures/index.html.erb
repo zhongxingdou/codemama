@@ -1,6 +1,8 @@
+  <%= stylesheet_link_tag "pagination" %>
 <link rel="stylesheet" href="/assets/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
 <script type="text/javascript" src="/assets/fancybox/jquery.fancybox.pack.js"></script>
 <style>
+/*
 	.cell-picname{
 		position: relative;
 	}
@@ -13,70 +15,17 @@
 
 	.clip-button.hover { background-color:#eee; }
 	.clip-button.active { background-color:#aaa; }
+  */
 
 	.thumbnails{
 		width: 50px;
 		height: 50px;
+    margin-left: 0;
 	}
-
-    .btn-upload {
-      cursor: pointer;
-      -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-      -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-      box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-      background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
-      background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
-      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
-      background-color:#79bbff;
-      -moz-border-radius:6px;
-      -webkit-border-radius:6px;
-      border-radius:6px;
-      border:1px solid #84bbf3;
-      display:inline-block;
-      color:#ffffff;
-      font-family:arial;
-      font-size:22px;
-      font-weight:bold;
-      padding:6px 38px;
-      text-decoration:none;
-      text-shadow:1px 3px 0px #528ecc;
-    }.btn-upload:hover {
-      background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
-      background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
-      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
-      background-color:#378de5;
-    }.btn-upload:active {
-      position:relative;
-      top:1px;
-    }
-
-    form{
-      margin: 50px 0;
-    }
-
-    .login-info{
-      float: right;
-    }
-
-    .wrap {
-      width: 800px;
-      margin: 0 auto;
-    }
-
-    table{
-      width: 700px;
-    }
+  .fancybox:hover img{
+    opacity: 0.6;
+  }
   </style>
-
-  <div class="wrap">
-    <div class="login-info">
-      你好：<span><%= current_user.email %></span>&nbsp;<%= link_to "退出", destroy_user_session_url, :method => :delete  %>
-    </div>
-
-    <h1>
-      <img src="/assets/favicon.ico" alt="logo" style="widht:48px;height:48px" />CodeMama-图片上传
-    </h1>
-
 
     <h2>
       <p style="color:red"><%= flash[:error] %></p>
@@ -84,17 +33,17 @@
 
     <%= form_tag({:action => :create}, :multipart => true) do |f| %>
       <p> <%= file_field 'image', 'file' %>
-        <%= submit_tag "上传图片", :class=> "btn-upload" %>
+        <%= submit_tag "上传图片", :class=> "btn btn-primary btn-large" %>
       </p>
     <% end %>
 
     <div class="recent">
-      <h3>你最近上传的文件</h3>
+      <h3>你上传的文件</h3>
 
-      <table>
+      <table class="table">
         <tr>
           <th>预览</th>
-          <th>图片名</th>
+          <th>图片地址</th>
           <th>上传日期</th>
           <th>操作</th>
         </tr>
@@ -102,10 +51,10 @@
         <% @pics.each do |picture| %>
           <tr>
             <td>
-              <%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails" %>
-              <a class="fancybox" href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank" rel="gallery">大图</a>
+              <a class="fancybox"  href="<%= "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name%>" target="_blank" rel="gallery">
+                <%= image_tag "/imgs/"+picture.name[0...picture.name.index("_")] + "/" + picture.name, :class => "thumbnails", :title=>"点击查看大图" %></a>
             </td>
-            <td class="cell-picname"><%= picture.name %>&nbsp;<span class="clip-button" data-filename="<%= picture.name %>">复制</span></td>
+            <td class="cell-picname">http://pic.chukou1.com/<%= picture.name[0...picture.name.index("_")] + "/"%><span style="color:blue;"><%= picture.name %></span>&nbsp;<span class="btn btn-mini btn-clip" data-filename="<%= picture.name %>">复制</span></td>
             <td><%= picture.created_at.strftime('%Y-%m-%d %H:%M:%S')  %></td>
             <td>
               <% if picture.created_at.day == Date.today.day and picture.created_at.month == Date.today.month %>
@@ -120,7 +69,6 @@
         <%= will_paginate @pics, :container => false %>
       </div>
     </div>
-  </div>
 
   <%= javascript_include_tag "ZeroClipboard.js" %>
   <script>
@@ -128,7 +76,7 @@
     function initClipBoard() {
       ZeroClipboard.setMoviePath('assets/ZeroClipboard10.swf' );
 
-      $(".clip-button").each(function(){
+      $(".btn-clip").each(function(){
         var clip = new ZeroClipboard.Client();
         clip.setHandCursor( true );
 		var filename = $(this).data("filename");

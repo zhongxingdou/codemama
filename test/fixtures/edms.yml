@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  owner_id: 1
+  template_id: 1
+  locked: false
+  editing_file: MyString
+
+two:
+  name: MyString
+  owner_id: 1
+  template_id: 1
+  locked: false
+  editing_file: MyString

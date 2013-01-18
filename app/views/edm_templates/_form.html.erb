@@ -1,0 +1,55 @@
+<%= render "layouts/code_mirrow" %>
+<%= form_for(@edm_template) do |f| %>
+<fieldset>
+  <% if @edm_template.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@edm_template.errors.count, "error") %> prohibited this edm_template from being saved:</h2>
+
+      <ul>
+      <% @edm_template.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+    <input type="button" id="realtimePreview" value="打开实时预览窗口" class="btn" />
+    <% if @edm_template.id %>
+    <% end %>
+
+    <span style="display: inline-block;margin-top:5px;">
+      <strong  class="radio inline" style="margin-left:20px;">从HTML文件导入： 编码</strong>
+   
+      <label class="radio inline" style="width:40px;"><input type="radio" name="encoding" value="utf-8" />UTF-8</label>
+      <label class="radio inline" style="width:40px;"><input type="radio" name="encoding" value="gbk" checked />GBK</label>
+      <input style="display:none;" id="template_file" type="file"/>
+      <input type="button" class="btn" value="选择导入文件" onclick="$('#template_file').click()" />
+    </span>
+
+  <div class="field" style="margin-top:10px">
+    <%= f.label :preview %>
+    <%= f.file_field :preview, :class=>"input-small" %>
+  </div>
+
+  <%= f.submit :class=>"btn btn-primary" %>
+  </fieldset>
+<% end %>
+
+<script src="http://res.chukou1.com/mama/edm/html_editor.js"></script>
+<script>
+$(function(){
+  $htmlEditor.init("edm_template_content");
+  $("#realtimePreview").click($htmlEditor.openPreview);
+  $('#template_file').change(function(event){
+    var encoding = $("input[name=encoding]:checked").val(); 
+    $htmlEditor.setContentByFile(this.files[0], encoding);
+    this.value = "";
+  });
+});
+</script>
+
