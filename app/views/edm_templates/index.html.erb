@@ -8,19 +8,17 @@
 
 <table class="table">
   <tr>
-    <th>预览图</th>
     <th>名称</th>
     <th>创建时间</th>
-    <th>编辑锁定</th>
+    <!-- <th>编辑锁定</th> -->
     <th></th>
   </tr>
 
 <% @edm_templates.each do |edm_template| %>
   <tr>
-    <td><%= edm_template.preview %></td>
     <td><%= link_to edm_template.name, preview_edm_template_path(edm_template), :target => "_blank", :title => "预览"%> </td>
     <td><%= distance_of_time_in_words_to_now edm_template.created_at  %></td>
-    <td><%= edm_template.locked %></td>
+    <!-- <td><%#= edm_template.locked %></td> -->
     <td class="operate"><%= link_to '', new_edm_template_edm_path(edm_template), :class=>"icon-plus", :title=>"新建EDM" %>
     <%#= link_to 'Show', edm_template %>
     <%= link_to '', edit_edm_template_path(edm_template), :class=>"icon-wrench", :title=>"编辑" %>

@@ -1,6 +1,5 @@
 <%= render "layouts/code_mirrow" %>
 <%= form_for(@edm_template) do |f| %>
-<fieldset>
   <% if @edm_template.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@edm_template.errors.count, "error") %> prohibited this edm_template from being saved:</h2>
@@ -31,13 +30,14 @@
       <input type="button" class="btn" value="选择导入文件" onclick="$('#template_file').click()" />
     </span>
 
-  <div class="field" style="margin-top:10px">
-    <%= f.label :preview %>
-    <%= f.file_field :preview, :class=>"input-small" %>
+<!--   <div class="field" style="margin-top:10px">
+    <%#= f.label :preview %>
+    <%#= f.file_field :preview, :class=>"input-small" %>
   </div>
-
-  <%= f.submit :class=>"btn btn-primary" %>
-  </fieldset>
+ -->  
+   <div style="margin-top:20px;">
+ <%= f.submit :class=>"btn btn-primary" %>
+</div>
 <% end %>
 
 <script src="http://res.chukou1.com/mama/edm/html_editor.js"></script>
