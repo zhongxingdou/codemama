@@ -4,6 +4,10 @@ class EdmsController < InheritedResources::Base
     @app = "EDM"
   end
 
+  def index
+    @edms = Edm.paginate(:page => params[:page], :per_page => 10)
+  end
+
   def new
     tmpl_id = params[:edm_template_id]
     @template = EdmTemplate.find(tmpl_id) if tmpl_id

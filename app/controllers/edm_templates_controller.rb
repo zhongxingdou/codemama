@@ -4,6 +4,10 @@ class EdmTemplatesController < InheritedResources::Base
     @app = "EDM"
   end
 
+  def index
+    @edm_templates = EdmTemplate.paginate(:page => params[:page], :per_page => 10)
+  end
+
   def preview
     @edm_template = EdmTemplate.find(params[:id])
     render :text => @edm_template.content
