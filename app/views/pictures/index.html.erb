@@ -66,8 +66,10 @@
         <% end %>
       </table>
 
-      <div class="flickr_pagination">
-        <%= will_paginate @pics, :container => false %>
+      <div class="pagination">
+        <ul>
+          <%= will_paginate @pics, :container => false %>
+        </ul>
       </div>
     </div>
 

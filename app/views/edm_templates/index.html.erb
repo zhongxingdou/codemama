@@ -29,6 +29,12 @@
 <% end %>
 </table>
 
+<div class="pagination">
+    <ul>
+      <%= will_paginate @pics, :container => false %>
+  </ul>
+</div>
+
 <br />
 
 <%= link_to '新建模板', new_edm_template_path, :class => "btn btn-primary" %>
