@@ -111,10 +111,12 @@ class PicturesController < InheritedResources::Base
 
 
         #准备要存储到的文件夹
-        if(File.exists?(SaveRoot + "/.DS_Store")) #for mac os
-          sub_count = sub_count - 1
-        end
+        # if(File.exists?(SaveRoot + "/.DS_Store")) #for mac os
+          # sub_count = sub_count - 1
+        # end
 
+        logger.debug "sub_count:" + sub_count.to_s
+        
         if sub_count == 0
           save_dir = SaveRoot + "/0"
 
