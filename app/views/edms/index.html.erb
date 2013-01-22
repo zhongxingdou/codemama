@@ -22,18 +22,34 @@
   <tr>
     <td><%= link_to edm.name, preview_edm_path(edm), :title => "Preview" %></td>
     <td><%= distance_of_time_in_words_to_now edm.created_at  %></td>
-    <td><%= edm.locked %></td>
+    <td><%= edm.locked ? "只读" : "可编辑" %></td>
     <td><%= edm.owner.username %></td>
     <td>
         <% if edm.template %>
             <%= link_to edm.template.name, preview_edm_template_path(edm.template) %>
         <% end %>
     </td>
-    <td class="operate"><%= link_to '', edit_content_edm_path(edm), :title=>"编辑", :class => 'icon-pencil' %>
+    <td class="operate">
+
+    <% unless edm.locked %>
+    <%= link_to '', edit_content_edm_path(edm), :title=>"编辑", :class => 'icon-pencil' %>
+    <% end %>
+
     <%= link_to '', download_edm_path(edm), :title => "下载", :class=>'icon-download-alt' %>
+
     <%= link_to '', clone_edm_path(edm), :class=>'icon-plus', :title=>"clone" %>
-    <%= link_to '', edit_edm_path(edm), :class=>"icon-wrench", :title=>'修改源码' %>
-    <%= link_to '', edm, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-trash', :title => "删除" %>
+
+    <% if edm.locked %>
+        <!-- 只读状态 -->
+        <%= link_to '', switch_locked_edm_path(edm), :method => "put", :class=> "icon-unlock", :title=>'解锁为可编辑状态' %>
+    <%  else %>
+        <!-- 可编辑状态 -->
+        <%= link_to '', edit_edm_path(edm), :class=>"icon-wrench", :title=>'修改源码' %>
+        <%= link_to '', edm, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-trash', :title => "删除" %>
+        <%= link_to '', switch_locked_edm_path(edm), :method => "put", :class=> "icon-locked", :title=>'锁定为只读状态' %>
+    <% end %>
+
+
     <%#= link_to 'Show', edm %></td>
   </tr>
 <% end %>

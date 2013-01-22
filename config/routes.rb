@@ -7,6 +7,7 @@ Codemama::Application.routes.draw do
             get 'preview'
             get 'edit_content'
             get 'download'
+            put 'switch_locked'
         end
     end
 

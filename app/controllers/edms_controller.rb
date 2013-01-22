@@ -1,3 +1,4 @@
+#encoding: utf-8
 class EdmsController < InheritedResources::Base
   before_filter :authenticate_user!, :set_name
   def set_name
@@ -38,9 +39,9 @@ class EdmsController < InheritedResources::Base
 
   def update
     @edm = Edm.find(params[:id])
-
+    @edm.errors.add(:content, "当前为只读状态，请先解除锁定") if @edm.locked
     respond_to do |format|
-      if @edm.update_attributes(params[:edm])
+      if !@edm.locked and @edm.update_attributes(params[:edm])
         flash[:notice] = 'Edm was successfully updated.'
         format.html  { redirect_to(:action => :index)}
         # format.json  { render :json => @edm, :status => :updated, :location => @edm }
@@ -71,6 +72,13 @@ class EdmsController < InheritedResources::Base
   def preview
     show_gbk
     render :preview, :layout => false
+  end
+
+  def switch_locked
+    @edm = Edm.find(params[:id])
+    @edm.locked = !@edm.locked
+    @edm.save
+    redirect_to :action => :index
   end
 
   def edit_content
