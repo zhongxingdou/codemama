@@ -20,13 +20,19 @@
     padding: 10px;
   }
   .download{
-    background: white url("/assets/download.png") no-repeat center center;
+    background: white url("/assets/download_64.png") no-repeat center center;
+  }
+  .preview{
+    background: white url("/assets/preview_64.png") no-repeat center center;
+  }
+  .upload{
+    background: white url("/assets/img_upload_64.png") no-repeat center center;
   }
   .back{
-    background: white url("/assets/back.png") no-repeat center center;
+    background: white url("/assets/back_64.png") no-repeat center center;
   }
   .edit{
-    background: white url("/assets/edit.png") no-repeat center center;
+    background: white url("/assets/edit_64.png") no-repeat center center;
   }
   .icon:hover{
     background-color: #ccc;
@@ -51,8 +57,10 @@
 <body>
     <div class="apptoolbar">
       <%= link_to '', edms_path, :title => "返回EDM列表", :class => 'back icon' %>
+      <%= link_to '', pictures_path(@edm), :title => "上传图片", :class=>'upload icon' %>
       <%= link_to '', edit_edm_path(@edm), :title => "编码源代码", :class=>'edit icon' %>
       <%= link_to '', download_edm_path(@edm), :title => "下载", :class=>'download icon' %>
+      <%= link_to '', preview_edm_path(@edm), :title => "预览", :class=>'preview icon' %>
     </div>
     <div id="edm_content" data-update_url="/edms/<%= @edm.id %>" data-update_params='{"utf8":"✓","authenticity_token":"<%= form_authenticity_token if protect_against_forgery? %>","_method":"put"}' data-update_name="edm[content]" >
         <%= raw @edm.content %>
