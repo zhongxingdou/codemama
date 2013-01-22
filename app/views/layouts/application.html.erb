@@ -42,7 +42,7 @@
     <div style="margin: 0 auto;width:960px;">
       <% if current_user %>
       <div class="login-banner">
-        你好：<span><%= current_user.email %></span>&nbsp;<%= link_to "退出", destroy_user_session_url, :method => :delete  %>
+        你好：<%= link_to current_user.username,   edit_user_registration_url, :title => "修改用户信息" %>&nbsp;<%= link_to "退出", destroy_user_session_url, :method => :delete  %>
       </div>
       <% end %>
 
