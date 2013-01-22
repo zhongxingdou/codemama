@@ -57,6 +57,8 @@
     <div id="edm_content" data-update_url="/edms/<%= @edm.id %>" data-update_params='{"utf8":"✓","authenticity_token":"<%= form_authenticity_token if protect_against_forgery? %>","_method":"put"}' data-update_name="edm[content]" >
         <%= raw @edm.content %>
     </div>
+    <script src="http://res.chukou1.com/mama/edm/edm.js"></script>
+    <script src="http://res.chukou1.com/mama/edm/edit_toolbar.js"></script>
     <script src="http://res.chukou1.com/mama/edm/editor.js"></script>
     <script src="http://res.chukou1.com/mama/edm/text_editor.js"></script>
     <script src="http://res.chukou1.com/mama/edm/line_editor.js"></script>
