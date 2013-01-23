@@ -81,6 +81,7 @@
     <script>
       $edm.init();
       $(".edit-page").click(function(){
+        $edm.fullEditMode = true;
         $edm.editors["RichEdit"].startEdit($("#edm_content")[0]);
       });
     </script>
