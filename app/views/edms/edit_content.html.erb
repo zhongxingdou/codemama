@@ -31,8 +31,11 @@
   .back{
     background: white url("/assets/back_64.png") no-repeat center center;
   }
-  .edit{
-    background: white url("/assets/edit_64.png") no-repeat center center;
+  .edit-html{
+    background: white url("/assets/html_edit_64.jpg") no-repeat center center;
+  }
+  .edit-page{
+    background: white url("/assets/rich_edit_64.png") no-repeat center center;
   }
   .icon:hover{
     background-color: #ccc;
@@ -58,7 +61,8 @@
     <div class="apptoolbar">
       <%= link_to '', edms_path, :title => "返回EDM列表", :class => 'back icon' %>
       <%= link_to '', pictures_path, :title => "上传图片", :class=>'upload icon', :target=>"_blank" %>
-      <%= link_to '', edit_edm_path(@edm), :title => "编码源代码", :class=>'edit icon' %>
+      <%= link_to '', edit_edm_path(@edm), :title => "编码源代码", :class=>'edit-html icon' %>
+      <a class="edit-page icon" title="整页编辑"></a>
       <%= link_to '', preview_edm_path(@edm), :title => "预览", :class=>'preview icon', :target=>"_blank" %>
       <%= link_to '', download_edm_path(@edm), :title => "下载", :class=>'download icon' %>
     </div>
@@ -76,6 +80,9 @@
     <script src="http://res.chukou1.com/mama/edm/image_prompt.js"></script>
     <script>
       $edm.init();
+      $(".edit-page").click(function(){
+        $edm.editors["RichEdit"].startEdit($("#edm_content")[0]);
+      });
     </script>
     <link rel="stylesheet" href="http://res.chukou1.com/vendor/jq_ui/1.9.2/css/redmond/jquery-ui-1.9.2.min.css" />
     <script src="http://res.chukou1.com/vendor/jq_ui/1.9.2/js/jquery-ui-1.9.2.min.js"></script>
