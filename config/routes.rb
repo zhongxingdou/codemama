@@ -1,4 +1,6 @@
 Codemama::Application.routes.draw do
+  resources :employees
+
   get "home/index"
 
     resources :edms do
@@ -19,6 +21,7 @@ Codemama::Application.routes.draw do
     end
 
     resources :faqs
+    resources :jobs
 
     resources :pictures
 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  position: MyString
+  location: MyString
+  requirements: MyText
+  description: MyText
+  expired_date: 2013-06-03
+
+two:
+  position: MyString
+  location: MyString
+  requirements: MyText
+  description: MyText
+  expired_date: 2013-06-03
