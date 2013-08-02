@@ -2,7 +2,8 @@ class JobsController < InheritedResources::Base
   # before_filter :authenticate_user!, :set_name
 
   def index
-    @jobs = Job.select("id, position, location, created_at, expired_date").paginate(:page => params[:page], :per_page => 10).order("id DESC")
+    @jobs = Job.select("id, position, location, created_at, expired_date").where("expired_date > ?", Time.now).paginate(:page => params[:page], :per_page => 10).order("id DESC")
+
     @count = Job.count
     result = {
       :jobs => @jobs,
