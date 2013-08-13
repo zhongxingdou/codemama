@@ -31,6 +31,8 @@ Codemama::Application.routes.draw do
 
     match "/pictures/upload" => "pictures#upload"
     match "/pictures/uploadBase64" => "pictures#uploadBase64"
+    match "/rails/jobs" => "jobs#index"
+    match "/rails/jobs/:id" => "jobs#show"
 
     root :to => "home#index"
 end
