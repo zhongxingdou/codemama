@@ -4,7 +4,7 @@ class JobsController < InheritedResources::Base
   def index
     @jobs = Job.select("id, position, location, created_at, expired_date").where("expired_date > ?", Time.now).paginate(:page => params[:page], :per_page => 10).order("id DESC")
 
-    @count = Job.count
+    @count = @jobs.length
     result = {
       :jobs => @jobs,
       :count => @count,
